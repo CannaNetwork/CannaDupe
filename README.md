@@ -19,7 +19,7 @@ Supported releases:
 1. Install Fabric Loader for your Minecraft version.
 2. Download the matching CannaDupe jar from Releases.
 3. Put the jar in your Minecraft `mods` folder.
-4. Open your inventory in-game and configure CannaDupe.
+4. Press **E** in-game to open your inventory. Use the CannaDupe buttons on that screen to choose the target item, set the grindstone, and start or stop the cycle.
 
 ## Notes
 
