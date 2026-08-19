@@ -22,7 +22,9 @@ import org.lwjgl.glfw.GLFW;
  * the exact original interaction position and reopen the grinder.
  */
 public final class CannaDupeController {
-    private static final double TRIGGER_DISTANCE = 6.1;
+    // The server requires at least six blocks. Leave a clear buffer for movement
+    // rounding, lag, and the grinder's centre-point distance calculation.
+    private static final double TRIGGER_DISTANCE = 7.5;
     private static final double RETURN_DISTANCE = 0.55;
     private final Minecraft mc = Minecraft.getInstance();
     private Item target = Items.DIAMOND;
@@ -83,7 +85,7 @@ public final class CannaDupeController {
         phase = Phase.INSERT;
         phaseTicks = 0;
         cycles = 0;
-        message("Started. Uses Gui Move: back 6 blocks, then forward to repeat. Esc stops.");
+        message("Started. Uses Gui Move: back 7.5 blocks, then forward to repeat. Esc stops.");
     }
 
     public void tick() {
