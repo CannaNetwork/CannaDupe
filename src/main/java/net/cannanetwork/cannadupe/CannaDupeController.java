@@ -87,6 +87,7 @@ public final class CannaDupeController {
     }
 
     public void tick() {
+        UpdateChecker.notifyWhenPlayerReady();
         boolean escDown = GLFW.glfwGetKey(((WindowAccessor)(Object) mc.getWindow()).cannadupe$getHandle(), GLFW.GLFW_KEY_ESCAPE) == GLFW.GLFW_PRESS;
         if (running() && escDown && !escWasDown) stop("Stopped with Esc.");
         escWasDown = escDown;
