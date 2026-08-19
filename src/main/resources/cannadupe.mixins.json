@@ -1,0 +1,7 @@
+{
+  "required": true,
+  "package": "net.cannanetwork.cannadupe.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": ["InventoryScreenMixin", "MinecraftMixin", "WindowAccessor"],
+  "injectors": { "defaultRequire": 1 }
+}

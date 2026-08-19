@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "id": "cannadupe",
+  "version": "${version}",
+  "name": "CannaDupe",
+  "description": "CannaDupe by ItzOnlyFisher.",
+  "authors": ["ItzOnlyFisher"],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": { "client": ["net.cannanetwork.cannadupe.CannaDupeClient"] },
+  "mixins": ["cannadupe.mixins.json"],
+  "depends": { "fabricloader": ">=0.19.3", "minecraft": "~${mc_version}", "java": ">=25" }
+}
