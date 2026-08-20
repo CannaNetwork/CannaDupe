@@ -33,12 +33,15 @@ public final class CannaDupeController {
     private Phase phase = Phase.IDLE;
     private int phaseTicks, cycles;
     private boolean escWasDown;
+    private boolean useGrindstoneItem = true;
 
     public Item target() { return target; }
     public void setTarget(Item item) { target = item; }
     public boolean running() { return phase != Phase.IDLE; }
     public int cycles() { return cycles; }
     public boolean hasGrindstone() { return grindstone != null; }
+    public boolean useGrindstoneItem() { return useGrindstoneItem; }
+    public void toggleUseGrindstoneItem() { useGrindstoneItem = !useGrindstoneItem; }
     public String status() {
         return switch (phase) {
             case IDLE -> grindstone == null ? "Ready — set a grindstone" : "Ready";
@@ -81,11 +84,16 @@ public final class CannaDupeController {
         if (mc.player == null || mc.level == null || !menuOpen()) { message("Open the grindstone first."); return; }
         if (grindstone == null) setGrindstone();
         if (grindstone == null) return;
+        ItemStack input = grinderInput();
+        boolean usingInput = useGrindstoneItem && !input.isEmpty();
+        if (usingInput) target = input.getItem();
         interactionPoint = mc.player.position();
-        phase = Phase.INSERT;
+        phase = usingInput ? Phase.BACK_AWAY : Phase.INSERT;
         phaseTicks = 0;
         cycles = 0;
-        message("Started. Uses Gui Move: back 7.5 blocks, then forward to repeat. Esc stops.");
+        message(usingInput
+            ? "Started with the item already in the grindstone. Esc stops."
+            : "Started. Uses Gui Move: back 7.5 blocks, then forward to repeat. Esc stops.");
     }
 
     public void tick() {
@@ -134,6 +142,11 @@ public final class CannaDupeController {
     }
 
     private boolean menuOpen() { return mc.screen instanceof GrindstoneScreen; }
+    private ItemStack grinderInput() {
+        return mc.player != null && mc.player.containerMenu.slots.size() > 0
+            ? mc.player.containerMenu.getSlot(0).getItem()
+            : ItemStack.EMPTY;
+    }
     private void lockCameraOnGrindstone() {
         Vec3 target = Vec3.atCenterOf(grindstone);
         double dx = target.x - mc.player.getX(), dz = target.z - mc.player.getZ();
